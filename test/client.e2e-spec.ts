@@ -1,10 +1,20 @@
 import { HttpStatus } from '@nestjs/common';
 import * as request from 'supertest';
-const app = 'http://localhost:3000'
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from './../src/app.module';
+import { INestApplication } from '@nestjs/common';
 
+let app: INestApplication;
+beforeEach(async () => {
+  const moduleFixture: TestingModule = await Test.createTestingModule({
+    imports: [AppModule],
+  }).compile();
+  app = moduleFixture.createNestApplication();
+  await app.init();
+});
 describe('ClientController (e2e) fetch columns', () => {
   it('/ (GET)', () => {
-    return request(app)
+    return request(app.getHttpServer())
       .get('/api/columns')
       .set({ Accept: 'application/json' })
       .expect(HttpStatus.OK)
@@ -19,7 +29,7 @@ describe('ClientController (e2e) fetch columns', () => {
 
 describe('fetch clients', () => {
   it('fetch clients', () => {
-    return request(app)
+    return request(app.getHttpServer())
       .get('/api/clients?page=1')
       .set('Accept', 'application/json')
       .expect(HttpStatus.OK)
@@ -31,21 +41,10 @@ describe('fetch clients', () => {
   })
 })
 
-describe('error while saving a client', () => {
-  it('should send validation error while saving a client client', () => {
-    return request(app)
-      .post('/api/client')
-      .set('Accept', 'application/json')
-      .expect(HttpStatus.BAD_REQUEST)
-      .expect(({ body }) => {
-        expect(body.statusCode).toEqual(400)
-      })
-  })
-})
 
 describe('should successfully save a client provided required fields', () => {
   it('should save a client', () => {
-    return request(app)
+    return request(app.getHttpServer())
       .post('/api/client')
       .send({
         name: 'John Doe',
