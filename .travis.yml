@@ -6,10 +6,12 @@ cache:
   - node_modules
 script:
   - npm install
+  - npm run build  
+  - npm run prod
   - npm run test:e2e
   - npm run test:unit
-  - npm run build  
-deploy:
+
+  deploy:
   provider: heroku
   api_key: d4a69bab-d8ef-40dd-856c-19512e0927f0
   app: introcept
