@@ -29,7 +29,12 @@ test('store client', async () => {
       name: 'John Doe',
       gender: 'Male',
       phone: '9821936585',
-      email: 'sudingrng@gmail.com'
+      email: 'sudingrng@gmail.com',
+      dob: '1994-01-07',
+      mode_of_contact: 'Email',
+      nationality: 'Nepal',
+      address: 'Bhaktapur',
+      education_background: 'BE'
     }
   )
   expect(res).toBe(true)

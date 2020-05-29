@@ -5,30 +5,36 @@
         <p class="modal-card-title">{{title}}</p>
       </header>
       <section class="modal-card-body">
-        <div v-for="(field, index) in fields" :key="index">
-          <b-field v-if="field.type == `string`" :label="field.title">
-            <b-input type="text" v-model="formData[field.id]" required></b-input>
-          </b-field>
+        <form @keypress.enter="save">
+          <div v-for="(field, index) in columns" :key="index">
+            <b-field v-if="field.type == `string`" :label="field.title">
+              <b-input v-model="formData[field.id]"></b-input>
+            </b-field>
 
-          <b-field v-if="field.type == `options`" :label="field.title">
-            <b-select placeholder="Select one" expanded v-model="formData[field.id]">
-              <option
-                v-for="(option, index) in field.options"
-                :key="index"
-                :value="option"
-              >{{option}}</option>
-            </b-select>
-          </b-field>
+            <b-field v-if="field.type == `date`" :label="field.title">
+              <b-datepicker v-model="formData[field.id]" placeholder="Click to select..." icon="calendar-today" trap-focus></b-datepicker>
+            </b-field>
 
-          <b-field style="margin-top:10px" v-if="field.type == `textarea`" :label="field.title">
-            <quill-editor
-              style="height:300px"
-              ref="myQuillEditor"
-              v-model="formData[field.id]"
-              :options="editorOption"
-            />
-          </b-field>
-        </div>
+            <b-field v-if="field.type == `options`" :label="field.title">
+              <b-select placeholder="Select one" expanded v-model="formData[field.id]">
+                <option
+                  v-for="(option, index) in field.options"
+                  :key="index"
+                  :value="option"
+                >{{option}}</option>
+              </b-select>
+            </b-field>
+
+            <b-field style="margin-top:10px" v-if="field.type == `textarea`" :label="field.title">
+              <quill-editor
+                style="height:300px"
+                ref="myQuillEditor"
+                v-model="formData[field.id]"
+                :options="editorOption"
+              />
+            </b-field>
+          </div>
+        </form>
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="isCardModalActive = false">Close</button>
@@ -39,7 +45,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
     return {
@@ -47,29 +52,16 @@ export default {
       formData: {},
       editorOption: {},
       title: null,
-      fields: [],
+      columns: [],
       uri: null,
     };
   },
   async created() {
     this.$bus.on('form', data => {
+      this.columns = this.$store.getters.columns;
+      this.createFormData();
       this.title = data.title;
       this.uri = data.uri;
-      this.fields = this.$store.getters.columns;
-      //   this.fields = this.$forms[data.header];
-      //   this.formData = { ...data.form_data };
-      //   this.postApi = data.header;
-      //   this.header = data.header;
-      //   if ('item' in data) {
-      //     this.formData._id = data.item._id;
-      //     this.fields.map(field => {
-      //       this.formData[field.field] = data.item[field.field];
-      //       if (field.field == 'file') {
-      //         this.formData.file = data.item.image;
-      //         this.imageData = data.item.image;
-      //       }
-      //     });
-      //   }
       this.isCardModalActive = true;
     });
   },
@@ -77,16 +69,18 @@ export default {
     this.$bus.off('form');
   },
   methods: {
+    createFormData() {
+      this.columns.map(field => {
+        this.formData[field.id] = '';
+      });
+    },
     async save() {
       try {
-        console.log(this.formData, this.uri);
-        let res = await this.$api.post(`/api/${this.uri}`, this.formData);
-        console.log(res);
-        // this.isCardModalActive = false;
-        // this.$bus.emit("refresh-list");
-        // this.$bus.emit("fetch-profile");
+        let res = await this.$api.post(`/${this.uri}`, this.formData);
+        this.isCardModalActive = false;
+        this.$bus.emit('refresh-list');
       } catch (e) {
-        console.log(e);
+        this.$bus.emit('show-errors', e.response.data.message);
       }
     },
   },

@@ -11,7 +11,7 @@ export class ClientController {
         return this.clientService.getColumns()
     }
 
-    @Get('/list')
+    @Get('/clients')
     async index(@Query() inputs: Object): Promise<Object> {
         try {
             return await this.clientService.get(inputs)
@@ -20,7 +20,7 @@ export class ClientController {
         }
     }
 
-    @Post('/save')
+    @Post('/client')
     async store(@Body() clientDto: ClientDto): Promise<string> {
         try {
             await this.clientService.store(clientDto)

@@ -12,65 +12,60 @@ export class ClientService {
             {
                 title: 'Name',
                 type: 'string',
-                required: true,
-                id: 'name'
+                id: 'name',
             },
             {
                 title: 'Gender',
                 type: 'options',
-                required: true,
                 id: 'gender',
                 options: [
                     'Male',
                     'Female',
                     'Others'
-                ]
+                ],
             },
             {
                 title: 'Phone',
                 type: 'string',
-                required: true,
                 id: 'phone',
+                maxlength:10
             },
             {
                 title: 'Email',
                 type: 'string',
-                required: true,
                 id: 'email',
             },
             {
                 title: 'Address',
                 type: 'string',
-                required: true,
+                required: false,
                 id: 'address',
+                rule:null
             },
             {
                 title: 'Nationality',
                 type: 'string',
-                required: true,
+                required: false,
                 id: 'nationality',
             },
             {
                 title: 'Date of Birth',
                 type: 'date',
-                required: true,
                 id: 'dob',
             },
             {
                 title: 'Preferred Mode of Contact',
                 type: 'options',
-                required: true,
                 id: 'mode_of_contact',
                 options: [
                     'Email',
                     'Phone',
                     'None'
-                ]
+                ],
             },
             {
                 title: 'Education Background',
                 type: 'textarea',
-                required: true,
                 id: 'education_background',
             }
         ];
