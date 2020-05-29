@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsDateString, IsNumberString, Min, Max } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumberString,IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class ClientDto {
@@ -15,7 +15,15 @@ export class ClientDto {
     @IsEmail()
     email: string
 
-    // @IsDateString()
-    // @Type(() => Date)
-    // dob: Date
+    @IsDate()
+    @Type(() => Date)
+    dob: Date
+
+    @IsNotEmpty()
+    mode_of_contact: string
+
+    address: string
+    nationality: string
+    education_background: string
+
 }

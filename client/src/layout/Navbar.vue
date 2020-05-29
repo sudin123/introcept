@@ -24,18 +24,18 @@
               <span class="icon">
                 <i class="fa fa-eye"></i>
               </span>
-              <span>View List</span>
+              <span>View Clients</span>
             </router-link>
           </span>
           <span class="navbar-item">
             <a
               class="button is-white is-outlined"
-              @click="$bus.emit('form', {title: 'Add Data', uri: 'save'})"
+              @click="$bus.emit('form', {title: 'Add Client', uri: 'client'})"
             >
               <span class="icon">
                 <i class="fa fa-plus"></i>
               </span>
-              <span>Add Data</span>
+              <span>Add Client</span>
             </a>
           </span>
         </div>

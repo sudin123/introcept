@@ -7,10 +7,8 @@
         :current-page.sync="searchData.page"
         :pagination-simple="isPaginationSimple"
         :pagination-position="paginationPosition"
-        :default-sort-direction="defaultSortDirection"
         @page-change="onPageChange"
         paginated
-        :sorting="sorting"
         backend-pagination
         :per-page="perPage"
         :total="total"
@@ -75,13 +73,17 @@ export default {
     async fetch() {
       try {
         this.loading = true;
-        let res = await this.$api.getWithPayload('/api/list', this.searchData);
+        let res = await this.$api.getWithPayload('/api/clients', this.searchData);
         this.data = res.items;
         this.total = res.count;
         this.loading = false;
       } catch (e) {
-        console.log(e);
+        alert('Something went wrong! Please try again');
       }
+    },
+    onPageChange(page) {
+      this.searchData.page = page;
+      this.fetch();
     },
   },
 };

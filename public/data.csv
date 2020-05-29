@@ -1,2 +1,3 @@
-gender,mode_of_contact,name,phone,email,address,nationality,education_background
-Others,Email,Id ullamco labore e,9821454654646,sudingrng@gmail.com,Aspernatur labore un,Officia doloribus do,<p>Voluptates omnis in .</p>
+name,gender,phone,email,dob,mode_of_contact,nationality,address,education_background
+John Doe,Male,9821936585,sudingrng@gmail.com,1994-01-07,Email,Nepal,Bhaktapur,BE
+John Doe,Male,9821936585,sudingrng@gmail.com,1994-01-07,Email,Nepal,Bhaktapur,BE

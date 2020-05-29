@@ -20,7 +20,7 @@ describe('ClientController (e2e) fetch columns', () => {
 describe('fetch clients', () => {
   it('fetch clients', () => {
     return request(app)
-      .get('/api/list?page=1')
+      .get('/api/clients?page=1')
       .set('Accept', 'application/json')
       .expect(HttpStatus.OK)
       .expect(({ body }) => {
@@ -34,7 +34,7 @@ describe('fetch clients', () => {
 describe('error while saving a client', () => {
   it('should send validation error while saving a client client', () => {
     return request(app)
-      .post('/api/save')
+      .post('/api/client')
       .set('Accept', 'application/json')
       .expect(HttpStatus.BAD_REQUEST)
       .expect(({ body }) => {
@@ -46,12 +46,17 @@ describe('error while saving a client', () => {
 describe('should successfully save a client provided required fields', () => {
   it('should save a client', () => {
     return request(app)
-      .post('/api/save')
+      .post('/api/client')
       .send({
         name: 'John Doe',
         gender: 'Male',
         phone: '9821936585',
-        email: 'sudingrng@gmail.com'
+        email: 'sudingrng@gmail.com',
+        dob: '1994-01-07',
+        mode_of_contact: 'Email',
+        nationality: 'Nepal',
+        address: 'Bhaktapur',
+        education_background: 'BE'
       })
       .set('Accept', 'application/json')
       .expect(HttpStatus.CREATED)
