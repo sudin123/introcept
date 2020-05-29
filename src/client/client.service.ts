@@ -7,14 +7,6 @@ const PER_PAGE = 10;
 
 @Injectable()
 export class ClientService {
-    constructor() {
-        try {
-            fs.openSync(filePath, 'r')
-        } catch (e) {
-            fs.openSync(filePath, 'w')
-        }
-    }
-
     getColumns(): Array<Object> {
         return [
             {
