@@ -87,22 +87,9 @@ export class ClientService {
         })
     }
 
-    checkClientsCsv() {
-        return new Promise((resolve, reject) => {
-            try {
-                fs.openSync(filePath, 'r')
-            } catch (e) {
-                fs.openSync(filePath, 'w')
-            } finally {
-                resolve(true)
-            }
-        });
-    }
-
     get(inputs: Object): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                await this.checkClientsCsv()
                 let obj = {
                     items: [],
                     count: await this.getCount()
@@ -126,7 +113,6 @@ export class ClientService {
     store(inputs: Object): Promise<Boolean> {
         return new Promise(async (resolve, reject) => {
             try {
-                await this.checkClientsCsv()
                 let count = await this.getCount()
                 const csvStream = format({ headers: true, includeEndRowDelimiter: true, writeHeaders: (count > 0) ? false : true });
                 csvStream.pipe(fs.createWriteStream(filePath, { flags: 'a' })).on('end', process.exit);
