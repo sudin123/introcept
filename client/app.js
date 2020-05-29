@@ -15,8 +15,6 @@ Vue.prototype.$api = api;
 import VueBus from "vue-bus";
 Vue.use(VueBus);
 Vue.use(Buefy);
-import VeeValidate from 'vee-validate';
-Vue.use(VeeValidate);
 
 import VueQuillEditor from "vue-quill-editor";
 // require styles
