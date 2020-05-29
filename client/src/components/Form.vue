@@ -7,7 +7,7 @@
       <section class="modal-card-body">
         <div v-for="(field, index) in fields" :key="index">
           <b-field v-if="field.type == `string`" :label="field.title">
-            <b-input type="text" v-model="formData[field.id]" required></b-input>
+            <b-input type="text" v-model="formData[field.id]"></b-input>
           </b-field>
 
           <b-field v-if="field.type == `options`" :label="field.title">
@@ -56,20 +56,6 @@ export default {
       this.title = data.title;
       this.uri = data.uri;
       this.fields = this.$store.getters.columns;
-      //   this.fields = this.$forms[data.header];
-      //   this.formData = { ...data.form_data };
-      //   this.postApi = data.header;
-      //   this.header = data.header;
-      //   if ('item' in data) {
-      //     this.formData._id = data.item._id;
-      //     this.fields.map(field => {
-      //       this.formData[field.field] = data.item[field.field];
-      //       if (field.field == 'file') {
-      //         this.formData.file = data.item.image;
-      //         this.imageData = data.item.image;
-      //       }
-      //     });
-      //   }
       this.isCardModalActive = true;
     });
   },
@@ -79,12 +65,9 @@ export default {
   methods: {
     async save() {
       try {
-        console.log(this.formData, this.uri);
         let res = await this.$api.post(`/api/${this.uri}`, this.formData);
-        console.log(res);
-        // this.isCardModalActive = false;
-        // this.$bus.emit("refresh-list");
-        // this.$bus.emit("fetch-profile");
+        this.isCardModalActive = false;
+        this.$bus.emit('refresh-list');
       } catch (e) {
         console.log(e);
       }
