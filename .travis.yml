@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules
+script:
+  - npm run test:e2e
+  - npm run test:unit
+  - npm run build  
+  - npm run prod
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: 477a3ea381a28d48e2b6838ccac038f89dbb2cb5 
+  local_dir: build
+  on:
+    branch: master
