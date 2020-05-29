@@ -2,11 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { resolve, join } from 'path';
 const fs = require('fs')
 import { parse, format } from 'fast-csv';
-const filePath = resolve(join(__dirname, '..', '../public/data.csv'))
+const filePath = resolve(join(__dirname, '..', '../public/clients.csv'))
 const PER_PAGE = 10;
 
 @Injectable()
 export class ClientService {
+    constructor() {
+        try {
+            fs.openSync(filePath, 'r')
+        } catch (e) {
+            fs.openSync(filePath, 'w')
+        }
+    }
+
     getColumns(): Array<Object> {
         return [
             {
@@ -28,7 +36,7 @@ export class ClientService {
                 title: 'Phone',
                 type: 'string',
                 id: 'phone',
-                maxlength:10
+                maxlength: 10
             },
             {
                 title: 'Email',
@@ -40,7 +48,7 @@ export class ClientService {
                 type: 'string',
                 required: false,
                 id: 'address',
-                rule:null
+                rule: null
             },
             {
                 title: 'Nationality',
