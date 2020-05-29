@@ -1,6 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container table_list">
+    <div calss="table_header">
+      <!-- table headers can be made dynamic -->
+      <span class="header">Clients</span>
+    </div>
     <div v-if="total > 0">
+      <!-- dynamic table -->
       <b-table
         :loading="loading"
         :data="data"
@@ -88,3 +93,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.header {
+  font-size: 30px;
+}
+.table_list {
+  padding-top: 30px;
+}
+</style>
