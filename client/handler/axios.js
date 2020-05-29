@@ -3,7 +3,7 @@ import axios from "axios";
 const api = {
   setHeaders() {
     const instance = axios.create({
-      baseURL: window.location.origin,
+      baseURL: `${window.location.origin}/api`,
       headers: {
         Accept: "application/json",
       },

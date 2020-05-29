@@ -23,7 +23,7 @@ export default {
     Errors,
   },
   async created() {
-    let columns = await this.$api.get('/api/columns');
+    let columns = await this.$api.get('/columns');
     this.$store.commit('SET_COLUMNS', columns);
   },
 };

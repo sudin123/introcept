@@ -73,7 +73,7 @@ export default {
     async fetch() {
       try {
         this.loading = true;
-        let res = await this.$api.getWithPayload('/api/clients', this.searchData);
+        let res = await this.$api.getWithPayload('/clients', this.searchData);
         this.data = res.items;
         this.total = res.count;
         this.loading = false;

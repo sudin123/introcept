@@ -76,7 +76,7 @@ export default {
     },
     async save() {
       try {
-        let res = await this.$api.post(`/api/${this.uri}`, this.formData);
+        let res = await this.$api.post(`/${this.uri}`, this.formData);
         this.isCardModalActive = false;
         this.$bus.emit('refresh-list');
       } catch (e) {
