@@ -15,7 +15,7 @@ script:
   api_key: d4a69bab-d8ef-40dd-856c-19512e0927f0
   app: introcept
   skip_cleanup: true
-  github_token: 477a3ea381a28d48e2b6838ccac038f89dbb2cb5 
+  github_token: a3b5156e4513cb84041b85d29697f1d822b27d39  
   local_dir: build
   on:
     branch: master
