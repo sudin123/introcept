@@ -20,7 +20,6 @@
     "test:unit": "jest --config ./test/jest-unit.json",
     "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --watch",
     "prod": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "postinstall": "npm run prestart:prod"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
