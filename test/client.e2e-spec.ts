@@ -38,6 +38,7 @@ describe('fetch clients', () => {
         expect(typeof body.count).toBe('number')
         expect(body.items).toBeInstanceOf(Array)
       })
+      
   })
 })
 
