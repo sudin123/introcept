@@ -6,10 +6,10 @@ cache:
   - node_modules
 script:
   - npm install
-  - npm run build  
-  - npm run prod
   - npm run test:e2e
   - npm run test:unit
+  - npm run build  
+  - npm run prod
 
   deploy:
   provider: heroku
