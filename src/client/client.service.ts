@@ -76,7 +76,7 @@ export class ClientService {
             try {
                 fs.readFileSync(filePath);
             } catch (err) {
-                fs.createWriteStream(filePath, { flags: 'w' })
+                fs.createWriteStream(filePath, { mode: 0o755 });
             } finally {
                 resolve(true)
             }
