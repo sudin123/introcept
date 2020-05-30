@@ -7,7 +7,6 @@
       <router-view></router-view>
     </section>
     <Form />
-    <Errors />
   </div>
 </template>
 
