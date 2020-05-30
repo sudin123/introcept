@@ -26,38 +26,6 @@ describe('ClientController (e2e) fetch columns', () => {
 });
 
 
-
-describe('fetch clients', () => {
-  it('fetch clients', () => {
-    return request(app.getHttpServer())
-      .get('/api/clients?page=1')
-      .set('Accept', 'application/json')
-      .expect(HttpStatus.OK)
-      .expect(({ body }) => {
-        expect(body).toBeInstanceOf(Object)
-        expect(typeof body.count).toBe('number')
-        expect(body.items).toBeInstanceOf(Array)
-      })
-
-  })
-})
-
-
-describe('should return validation error for insufficent data', () => {
-  it('should save a client', () => {
-    return request(app.getHttpServer())
-      .post('/api/client')
-      .send({
-        name: 'John Doe',
-      })
-      .set('Accept', 'application/json')
-      .expect(HttpStatus.UNPROCESSABLE_ENTITY)
-      .expect(({ body }) => {
-        expect(body).toBeInstanceOf(Array)
-      })
-  })
-})
-
 describe('should successfully save a client provided required fields', () => {
   it('should save a client', () => {
     return request(app.getHttpServer())
@@ -81,3 +49,36 @@ describe('should successfully save a client provided required fields', () => {
   })
 })
 
+
+
+
+describe('fetch clients', () => {
+  it('fetch clients', () => {
+    return request(app.getHttpServer())
+      .get('/api/clients?page=1')
+      .set('Accept', 'application/json')
+      .expect(HttpStatus.OK)
+      .expect(({ body }) => {
+        expect(body).toBeInstanceOf(Object)
+        expect(typeof body.count).toBe('number')
+        expect(body.items).toBeInstanceOf(Array)
+      })
+
+  })
+})
+
+
+describe('should return validation error for insufficent data', () => {
+  it('should not save a client', () => {
+    return request(app.getHttpServer())
+      .post('/api/client')
+      .send({
+        name: 'John Doe',
+      })
+      .set('Accept', 'application/json')
+      .expect(HttpStatus.UNPROCESSABLE_ENTITY)
+      .expect(({ body }) => {
+        expect(body).toBeInstanceOf(Array)
+      })
+  })
+})
