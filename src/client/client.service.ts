@@ -71,6 +71,18 @@ export class ClientService {
         ];
     }
 
+    createCsvIfDeoesntExist(): Promise<any> {
+        return new Promise((resolve) => {
+            try {
+                fs.readFileSync(filePath);
+            } catch (err) {
+                fs.createWriteStream(filePath, { flags: 'w' })
+            } finally {
+                resolve(true)
+            }
+        })
+    }
+
     getCount(): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
@@ -90,6 +102,7 @@ export class ClientService {
     get(inputs: Object): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
+                await this.createCsvIfDeoesntExist()
                 let obj = {
                     items: [],
                     count: await this.getCount()
@@ -138,6 +151,7 @@ export class ClientService {
         return new Promise(async (resolve, reject) => {
             try {
                 await this.validateClient(inputs);
+                await this.createCsvIfDeoesntExist()
                 let count = await this.getCount()
                 const csvStream = format({ headers: true, includeEndRowDelimiter: true, writeHeaders: (count > 0) ? false : true });
                 csvStream.pipe(fs.createWriteStream(filePath, { flags: 'a' })).on('end', process.exit);
