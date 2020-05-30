@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, HttpException, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, Query, HttpStatus } from '@nestjs/common';
 import { ClientService } from './client.service';
-import { ClientDto } from './client.dto';
 
 @Controller('/api')
 export class ClientController {
@@ -16,17 +15,17 @@ export class ClientController {
         try {
             return await this.clientService.get(inputs)
         } catch (e) {
-            throw new HttpException('Something went wrong', 400);
+            throw new HttpException('Something went wrong', HttpStatus.BAD_REQUEST);
         }
     }
 
     @Post('/client')
-    async store(@Body() clientDto: ClientDto): Promise<string> {
+    async store(@Body() inputs: Object): Promise<string> {
         try {
-            await this.clientService.store(clientDto)
+            await this.clientService.store(inputs)
             return 'Successfully Inserted'
         } catch (e) {
-            throw new HttpException('Something went wrong', 400);
+            throw new HttpException(e, HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 }

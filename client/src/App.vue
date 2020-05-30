@@ -14,13 +14,11 @@
 <script>
 import Navbar from './layout/Navbar';
 import Form from './components/Form';
-import Errors from './components/Errors';
 
 export default {
   components: {
     Form,
     Navbar,
-    Errors,
   },
   async created() {
     let columns = await this.$api.get('/columns');

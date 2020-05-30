@@ -2,17 +2,28 @@ import { Injectable } from '@nestjs/common';
 import { resolve, join } from 'path';
 const fs = require('fs')
 import { parse, format } from 'fast-csv';
+import { validateAll } from 'indicative/validator'
 const filePath = resolve(join(__dirname, '..', '../public/clients.csv'))
 const PER_PAGE = 10;
-
 @Injectable()
 export class ClientService {
     getColumns(): Array<Object> {
         return [
             {
                 title: 'Name',
-                type: 'string',
+                type: 'text',
                 id: 'name',
+            },
+            {
+                title: 'Phone',
+                type: 'number',
+                id: 'phone',
+                maxlength: 10
+            },
+            {
+                title: 'Email',
+                type: 'email',
+                id: 'email',
             },
             {
                 title: 'Gender',
@@ -25,26 +36,15 @@ export class ClientService {
                 ],
             },
             {
-                title: 'Phone',
-                type: 'string',
-                id: 'phone',
-                maxlength: 10
-            },
-            {
-                title: 'Email',
-                type: 'string',
-                id: 'email',
-            },
-            {
                 title: 'Address',
-                type: 'string',
+                type: 'text',
                 required: false,
                 id: 'address',
                 rule: null
             },
             {
                 title: 'Nationality',
-                type: 'string',
+                type: 'text',
                 required: false,
                 id: 'nationality',
             },
@@ -82,7 +82,7 @@ export class ClientService {
                         resolve(rowCount)
                     })
             } catch (e) {
-                reject(false)
+                reject(e)
             }
         })
     }
@@ -110,9 +110,34 @@ export class ClientService {
 
     }
 
+    async validateClient(inputs: Object) {
+        const rules = {
+            name: 'required',
+            email: 'required|email',
+            phone: 'required|max:10|min:7',
+            gender: 'required',
+            dob: 'required',
+            mode_of_contact: 'required'
+        }
+        const messages = {
+            'name.required': 'Name is required',
+            'email.required': 'Email is required',
+            'email.email': 'Email is invalid',
+            'gender.required': 'Please select a gender',
+            'dob.required': 'Date of Birth is required',
+            'mode_of_contact.required': 'Please select a mode of contact',
+            'phone.required': 'Phone is required',
+            'phone.min': 'Phone should have at least 7 numbers',
+            'phone.max': 'Phone should have at least 7 numbers'
+        }
+        return await validateAll(inputs, rules, messages)
+    }
+
+
     store(inputs: Object): Promise<Boolean> {
         return new Promise(async (resolve, reject) => {
             try {
+                await this.validateClient(inputs);
                 let count = await this.getCount()
                 const csvStream = format({ headers: true, includeEndRowDelimiter: true, writeHeaders: (count > 0) ? false : true });
                 csvStream.pipe(fs.createWriteStream(filePath, { flags: 'a' })).on('end', process.exit);
@@ -120,7 +145,7 @@ export class ClientService {
                 csvStream.end();
                 resolve(true);
             } catch (e) {
-                reject(false);
+                reject(e);
             }
         });
     }
