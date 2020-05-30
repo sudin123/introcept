@@ -2,7 +2,7 @@
   <div class="container table_list">
     <div calss="table_header">
       <!-- table headers can be made dynamic -->
-      <span class="header">Clients</span>
+      <span class="header" v-if="total > 0">Clients</span>
     </div>
     <div v-if="total > 0">
       <!-- dynamic table -->
