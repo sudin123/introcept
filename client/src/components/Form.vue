@@ -86,7 +86,7 @@ export default {
   },
   async created() {
     this.$bus.on('form', data => {
-      this, (errors = {});
+      this.errors = {}
       this.columns = this.$store.getters.columns;
       this.title = data.title;
       this.uri = data.uri;

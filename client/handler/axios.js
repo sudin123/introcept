@@ -77,11 +77,7 @@ const api = {
   },
 
   async handlerError(statusCode) {
-    console.log(statusCode)
-    if (statusCode == 401) {
-      //   localStorage.removeItem("user");
-      //   location.reload();
-    }
+    // handle errors here
     return;
   },
 };
