@@ -141,7 +141,7 @@ export class ClientService {
             'mode_of_contact.required': 'Please select a mode of contact',
             'phone.required': 'Phone is required',
             'phone.min': 'Phone should have at least 7 numbers',
-            'phone.max': 'Phone should have at least 7 numbers'
+            'phone.max': 'Phone number cannot have more than 10 numbers'
         }
         return await validateAll(inputs, rules, messages)
     }
