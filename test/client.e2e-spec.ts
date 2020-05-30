@@ -26,6 +26,31 @@ describe('ClientController (e2e) fetch columns', () => {
 });
 
 
+describe('should successfully save a client provided required fields', () => {
+  it('should save a client', () => {
+    return request(app.getHttpServer())
+      .post('/api/client')
+      .send({
+        name: 'John Doe',
+        gender: 'Male',
+        phone: '9821936585',
+        email: 'sudingrng@gmail.com',
+        dob: '1994-01-07',
+        mode_of_contact: 'Email',
+        nationality: 'Nepal',
+        address: 'Bhaktapur',
+        education_background: 'BE'
+      })
+      .set('Accept', 'application/json')
+      .expect(HttpStatus.CREATED)
+      .expect(({ text }) => {
+        expect(text).toEqual('Successfully Inserted')
+      })
+  })
+})
+
+
+
 
 describe('fetch clients', () => {
   it('fetch clients', () => {
@@ -57,27 +82,3 @@ describe('should return validation error for insufficent data', () => {
       })
   })
 })
-
-describe('should successfully save a client provided required fields', () => {
-  it('should save a client', () => {
-    return request(app.getHttpServer())
-      .post('/api/client')
-      .send({
-        name: 'John Doe',
-        gender: 'Male',
-        phone: '9821936585',
-        email: 'sudingrng@gmail.com',
-        dob: '1994-01-07',
-        mode_of_contact: 'Email',
-        nationality: 'Nepal',
-        address: 'Bhaktapur',
-        education_background: 'BE'
-      })
-      .set('Accept', 'application/json')
-      .expect(HttpStatus.CREATED)
-      .expect(({ text }) => {
-        expect(text).toEqual('Successfully Inserted')
-      })
-  })
-})
-
