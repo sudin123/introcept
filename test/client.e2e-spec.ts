@@ -69,7 +69,7 @@ describe('fetch clients', () => {
 
 
 describe('should return validation error for insufficent data', () => {
-  it('should save a client', () => {
+  it('should not save a client', () => {
     return request(app.getHttpServer())
       .post('/api/client')
       .send({
