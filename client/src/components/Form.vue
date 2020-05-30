@@ -86,6 +86,7 @@ export default {
   },
   async created() {
     this.$bus.on('form', data => {
+      this, (errors = {});
       this.columns = this.$store.getters.columns;
       this.title = data.title;
       this.uri = data.uri;
@@ -104,6 +105,7 @@ export default {
         this.isCardModalActive = false;
         this.$bus.emit('refresh-list');
       } catch (e) {
+        this.errors = {};
         e.response.data.map(err => {
           this.errors[err.field] = err.message;
         });
