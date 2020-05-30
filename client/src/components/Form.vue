@@ -5,17 +5,28 @@
         <p class="modal-card-title">{{title}}</p>
       </header>
       <section class="modal-card-body">
-        <form @keypress.enter="save">
+        <form @keypress.enter="save" v-if="showForm">
           <div v-for="(field, index) in columns" :key="index">
-            <b-field v-if="field.type == `string`" :label="field.title">
-              <b-input v-model="formData[field.id]"></b-input>
+            <b-field
+              v-if="field.type == `date`"
+              :label="field.title"
+              :type="(field.id in errors) ? 'is-danger' : null"
+              :message="(field.id in errors) ? errors[field.id] : null"
+            >
+              <b-datepicker
+                v-model="formData[field.id]"
+                placeholder="Click to select..."
+                icon="calendar-today"
+                trap-focus
+              ></b-datepicker>
             </b-field>
 
-            <b-field v-if="field.type == `date`" :label="field.title">
-              <b-datepicker v-model="formData[field.id]" placeholder="Click to select..." icon="calendar-today" trap-focus></b-datepicker>
-            </b-field>
-
-            <b-field v-if="field.type == `options`" :label="field.title">
+            <b-field
+              v-else-if="field.type == `options`"
+              :label="field.title"
+              :type="(field.id in errors) ? 'is-danger' : null"
+              :message="(field.id in errors) ? errors[field.id] : null"
+            >
               <b-select placeholder="Select one" expanded v-model="formData[field.id]">
                 <option
                   v-for="(option, index) in field.options"
@@ -25,13 +36,28 @@
               </b-select>
             </b-field>
 
-            <b-field style="margin-top:10px" v-if="field.type == `textarea`" :label="field.title">
+            <b-field
+              style="margin-top:10px"
+              v-else-if="field.type == `textarea`"
+              :label="field.title"
+              :type="(field.id in errors) ? 'is-danger' : null"
+              :message="(field.id in errors) ? errors[field.id] : null"
+            >
               <quill-editor
                 style="height:300px"
                 ref="myQuillEditor"
                 v-model="formData[field.id]"
                 :options="editorOption"
               />
+            </b-field>
+
+            <b-field
+              v-else
+              :label="field.title"
+              :type="(field.id in errors) ? 'is-danger' : null"
+              :message="(field.id in errors) ? errors[field.id] : null"
+            >
+              <b-input :type="field.type" v-model="formData[field.id]"></b-input>
             </b-field>
           </div>
         </form>
@@ -54,33 +80,37 @@ export default {
       title: null,
       columns: [],
       uri: null,
+      errors: {},
+      showForm: true,
     };
   },
   async created() {
     this.$bus.on('form', data => {
       this.columns = this.$store.getters.columns;
-      this.createFormData();
       this.title = data.title;
       this.uri = data.uri;
       this.isCardModalActive = true;
     });
   },
+
   destroyed() {
     this.$bus.off('form');
   },
+
   methods: {
-    createFormData() {
-      this.columns.map(field => {
-        this.formData[field.id] = '';
-      });
-    },
     async save() {
       try {
         let res = await this.$api.post(`/${this.uri}`, this.formData);
         this.isCardModalActive = false;
         this.$bus.emit('refresh-list');
       } catch (e) {
-        this.$bus.emit('show-errors', e.response.data.message);
+        e.response.data.map(err => {
+          this.errors[err.field] = err.message;
+        });
+        this.showForm = false;
+        this.$nextTick(() => {
+          this.showForm = true;
+        });
       }
     },
   },
