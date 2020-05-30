@@ -1,35 +1,24 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Project Description
 
-## Description
+BackEnd - [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+FrontEnd | [axios](https://vuejs.org/) FrontEnd framework/library used as a framework for SPA in this application
+CI/CD - Travis CI
+Heroku - is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud. 
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Npm Packages
+[fast-csv](https://c2fo.io/fast-csv/) Fast-csv is library for parsing and formatting csvs or any other delimited value file in node.
+[indicative](https://indicative.adonisjs.com/guides/master/introduction) Indicative is a data validation library to validate complex data objects by defining a human readable schema.
+
+[webpack](https://webpack.js.org/) Javascipt bundler which is used in this project in forntend as dev dependency
+[axios](https://www.npmjs.com/package/axios) Promise based HTTP client for the browser and node.js
+[buefy](https://buefy.org/) Buefy is a free, open source and light CSS framework based on Flexbox suitable for Vuejs based on [Bulma](https://bulma.io/)
+[vuex](https://vuex.vuejs.org/) Vuex is a state management pattern + library for Vue.js applications
+[vue-router](https://router.vuejs.org/) Vue Router is the official router for Vue.js. It deeply integrates with Vue.js core to make building Single Page Applications with Vue.js a breeze
+[vue-quill-editor](https://openbase.io/js/vue-quill-editor) Rich Text Editor
+
 
 ## Installation
-
 ```bash
 $ npm install
 ```
@@ -37,39 +26,21 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
+# development mode
+$ npm run start:dev - starts NetsJs application
+$ npm run watch -watches vuejs file changes
 
 # production mode
-$ npm run start:prod
+$ npm run start:prod 
+$ npm run prod -bundles vuejs application
 ```
 
 ## Test
 
 ```bash
-# unit tests
-$ npm run test
-
 # e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# unit tests
+$ npm run test:unit
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
