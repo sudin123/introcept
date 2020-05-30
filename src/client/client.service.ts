@@ -4,7 +4,7 @@ const fs = require('fs')
 import { parse, format } from 'fast-csv';
 import { validateAll } from 'indicative/validator'
 const filePath = resolve(join(__dirname, '..', '../public/clients.csv'))
-const PER_PAGE = 10;
+const PER_PAGE = 5;
 @Injectable()
 export class ClientService {
     getColumns(): Array<Object> {
